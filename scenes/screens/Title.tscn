@@ -1,0 +1,85 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scenes/screens/Title.gd" type="Script" id=1]
+[ext_resource path="res://scenes/screens/Level.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Sky.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://fonts/ka1.ttf" type="DynamicFontData" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+
+size = 48
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 5 )
+_sections_unfolded = [ "Font" ]
+
+[sub_resource type="Animation" id=2]
+
+resource_name = "title"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.1, 0.1 ), Vector2( 1, 1 ) ]
+}
+
+[node name="Main" type="Node" index="0"]
+
+script = ExtResource( 1 )
+NEXT_SCENE = ExtResource( 2 )
+
+[node name="Sky" parent="." index="0" instance=ExtResource( 3 )]
+
+[node name="Player" parent="." index="1" instance=ExtResource( 4 )]
+
+position = Vector2( 180, 440 )
+
+[node name="Label" type="Label" parent="." index="2"]
+
+anchor_left = 0.5
+anchor_top = 0.0
+anchor_right = 0.5
+anchor_bottom = 0.0
+margin_left = -100.0
+margin_top = 100.0
+margin_right = 100.0
+margin_bottom = 171.0
+rect_rotation = 12.5
+rect_pivot_offset = Vector2( 100, 85 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.17276, 0.288943, 0.597656, 1 )
+text = "Osef Fish"
+align = 1
+valign = 1
+autowrap = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Rect" ]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Label" index="0"]
+
+root_node = NodePath("..")
+autoplay = "title"
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/title = SubResource( 2 )
+blend_times = [  ]
+
+
