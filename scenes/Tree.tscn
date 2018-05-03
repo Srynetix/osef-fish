@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/Tree.gd" type="Script" id=1]
+[ext_resource path="res://textures/tree.png" type="Texture" id=2]
+
+[sub_resource type="CapsuleShape2D" id=1]
+
+custom_solver_bias = 0.0
+radius = 56.8573
+height = 207.457
+
+[node name="Tree" type="StaticBody2D" index="0" groups=[
+"obstacle",
+]]
+
+position = Vector2( 176.367, 322.586 )
+input_pickable = false
+collision_layer = 2
+collision_mask = 2
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision", "Linear", "collision" ]
+SPEED = -100.0
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+
+scale = Vector2( 4, 5 )
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="." index="2"]
+
+position = Vector2( -4.15535, 0.414029 )
+scale = Vector2( 5.73372, 16 )
+rect = Rect2( -10, -10, 20, 20 )
+
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+
+

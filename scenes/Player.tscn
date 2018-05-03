@@ -4,44 +4,44 @@
 [ext_resource path="res://textures/Spark.png" type="Texture" id=2]
 [ext_resource path="res://spritesheets/fish.png" type="Texture" id=3]
 
-[sub_resource type="Gradient" id=11]
+[sub_resource type="Gradient" id=1]
 
 offsets = PoolRealArray( 0, 0.862543, 1 )
 colors = PoolColorArray( 0.78125, 1, 0, 1, 0.917311, 1, 0.621993, 0.378007, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=12]
+[sub_resource type="GradientTexture" id=2]
 
 flags = 4
-gradient = SubResource( 11 )
+gradient = SubResource( 1 )
 width = 2048
 
-[sub_resource type="Curve" id=9]
+[sub_resource type="Curve" id=3]
 
 min_value = -1.0
 max_value = 1.0
 bake_resolution = 100
 _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=10]
+[sub_resource type="CurveTexture" id=4]
 
 flags = 4
 width = 2048
-curve = SubResource( 9 )
+curve = SubResource( 3 )
 
-[sub_resource type="Curve" id=13]
+[sub_resource type="Curve" id=5]
 
 min_value = 0.0
 max_value = 1.0
 bake_resolution = 100
-_data = [ Vector2( 0.00148605, 0.994141 ), 0.0, 0.0, 0, 0, Vector2( 0.994513, 0 ), 0.222861, 0.0, 0, 0 ]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.787237, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=14]
+[sub_resource type="CurveTexture" id=6]
 
 flags = 4
 width = 2048
-curve = SubResource( 13 )
+curve = SubResource( 5 )
 
-[sub_resource type="ParticlesMaterial" id=15]
+[sub_resource type="ParticlesMaterial" id=7]
 
 render_priority = 0
 trail_divisor = 1
@@ -50,13 +50,13 @@ emission_box_extents = Vector3( 10, 20, 1 )
 flag_align_y = false
 flag_rotate_y = false
 flag_disable_z = true
-spread = 180.0
+spread = 25.0
 flatness = 0.0
-gravity = Vector3( -100, 0, 0 )
-initial_velocity = 0.0
+gravity = Vector3( -50, 0, 0 )
+initial_velocity = 50.0
 initial_velocity_random = 0.0
 angular_velocity = 100.0
-angular_velocity_random = 0.0
+angular_velocity_random = 0.5
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 linear_accel = 1.0
@@ -65,25 +65,25 @@ radial_accel = 10.0
 radial_accel_random = 0.5
 tangential_accel = 0.0
 tangential_accel_random = 0.0
-damping = 0.0
+damping = 10.0
 damping_random = 0.0
-angle = 90.0
+angle = 10.0
 angle_random = 0.5
-scale = 0.15
-scale_random = 0.25
-scale_curve = SubResource( 14 )
-color_ramp = SubResource( 12 )
+scale = 0.05
+scale_random = 0.2
+scale_curve = SubResource( 6 )
+color_ramp = SubResource( 2 )
 hue_variation = 0.5
 hue_variation_random = 0.5
-hue_variation_curve = SubResource( 10 )
+hue_variation_curve = SubResource( 4 )
 anim_speed = 0.0
 anim_speed_random = 0.0
 anim_offset = 0.0
 anim_offset_random = 0.0
 anim_loop = false
-_sections_unfolded = [ "Emission Shape", "Scale" ]
+_sections_unfolded = [ "Angle", "Angular Velocity", "Damping", "Emission Shape", "Flags", "Gravity", "Initial Velocity", "Linear Accel", "Orbit Velocity", "Radial Accel", "Resource", "Scale", "Spread", "Tangential Accel" ]
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=8]
 
 resource_name = "fly"
 length = 0.5
@@ -102,7 +102,7 @@ tracks/0/keys = {
 "values": [ 0, 5, 0 ]
 }
 
-[sub_resource type="Animation" id=17]
+[sub_resource type="Animation" id=9]
 
 resource_name = "idle"
 length = 0.5
@@ -121,42 +121,48 @@ tracks/0/keys = {
 "values": [ 0, 1 ]
 }
 
-[sub_resource type="CapsuleShape2D" id=18]
+[sub_resource type="CapsuleShape2D" id=10]
 
 custom_solver_bias = 0.0
 radius = 15.7719
 height = 19.6604
 
-[node name="Player" type="RigidBody2D"]
+[node name="Player" type="RigidBody2D" index="0" groups=[
+"player",
+]]
 
+position = Vector2( 190, 350 )
 input_pickable = false
 collision_layer = 3
 collision_mask = 3
 mode = 2
 mass = 1.0
 friction = 1.0
-bounce = 1.0
+bounce = 0.0
 gravity_scale = 3.0
 custom_integrator = false
 continuous_cd = 0
-contacts_reported = 0
-contact_monitor = false
+contacts_reported = 1
+contact_monitor = true
 sleeping = false
-can_sleep = true
+can_sleep = false
 linear_velocity = Vector2( 0, 0 )
 linear_damp = -1.0
 angular_velocity = 0.0
 angular_damp = -1.0
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision", "Offset", "Z Index" ]
+__meta__ = {
+"_edit_group_": true
+}
 GRAVITY_SCALE = 3
 JUMP_SPEED = -200
 ANGULAR_SPEED = 0.5
 
 [node name="Particles2D" type="Particles2D" parent="." index="0"]
 
-position = Vector2( -1.27548, 0.166384 )
-scale = Vector2( 0.862006, 0.654737 )
+position = Vector2( -8.61402, 0.166384 )
+scale = Vector2( 0.632677, 0.654737 )
 emitting = true
 amount = 100
 lifetime = 3.0
@@ -170,12 +176,12 @@ fract_delta = false
 visibility_rect = Rect2( -100, -100, 200, 200 )
 local_coords = false
 draw_order = 0
-process_material = SubResource( 15 )
+process_material = SubResource( 7 )
 texture = ExtResource( 2 )
 normal_map = null
 h_frames = 1
 v_frames = 1
-_sections_unfolded = [ "Process Material", "Textures", "Time", "Z Index" ]
+_sections_unfolded = [ "Process Material", "Textures", "Z Index" ]
 
 [node name="Sprite" type="Sprite" parent="." index="1"]
 
@@ -191,14 +197,16 @@ autoplay = "idle"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/fly = SubResource( 16 )
-anims/idle = SubResource( 17 )
+anims/fly = SubResource( 8 )
+anims/idle = SubResource( 9 )
 blend_times = [  ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="3"]
 
 rotation = 1.5708
-shape = SubResource( 18 )
+shape = SubResource( 10 )
 _sections_unfolded = [ "Transform" ]
+
+[connection signal="body_entered" from="." to="." method="_on_Player_body_entered"]
 
 
