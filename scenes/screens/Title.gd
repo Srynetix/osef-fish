@@ -1,6 +1,12 @@
 extends Node
 
+#######
+# Title
+
 var next_scene = load("res://scenes/screens/Level.tscn")
+
+###################
+# Lifecycle methods
 
 func _ready():
     randomize()

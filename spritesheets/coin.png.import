@@ -3,20 +3,21 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/coin.png-4f557aef64c1df2e8c9b15cbc77d78e9.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://spritesheets/coin.png"
-source_md5="aefbde2e3d763577721c681bb25c5fdc"
-
 dest_files=[ "res://.import/coin.png-4f557aef64c1df2e8c9b15cbc77d78e9.stex" ]
-dest_md5="29523656bf16b8a2df8036a7f0531391"
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
@@ -26,6 +27,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true

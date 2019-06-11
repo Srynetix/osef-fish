@@ -4,44 +4,27 @@
 [ext_resource path="res://textures/pipe.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-
-custom_solver_bias = 0.0
 extents = Vector2( 46.3508, 143.055 )
 
-[node name="Tree" type="StaticBody2D" index="0" groups=[
+[node name="Tree" type="StaticBody2D" groups=[
 "obstacle",
 ]]
-
 position = Vector2( 176.367, 322.586 )
-input_pickable = false
 collision_layer = 2
 collision_mask = 2
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 0.0
 script = ExtResource( 1 )
-_sections_unfolded = [ "Collision", "Linear", "collision" ]
 SPEED = -100.0
 
-[node name="Sprite" type="Sprite" parent="." index="0"]
-
+[node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 4, 5 )
 texture = ExtResource( 2 )
-_sections_unfolded = [ "Transform" ]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
-
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 18.5609 )
 shape = SubResource( 1 )
-_sections_unfolded = [ "Transform" ]
 
-[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="." index="2"]
-
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 position = Vector2( 0.96913, 16.7627 )
 scale = Vector2( 5.22127, 14.3651 )
-rect = Rect2( -10, -10, 20, 20 )
 
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
-
-

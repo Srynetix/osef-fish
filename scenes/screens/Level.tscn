@@ -11,31 +11,18 @@
 [ext_resource path="res://scenes/Coin.tscn" type="PackedScene" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
-
-custom_solver_bias = 0.0
 extents = Vector2( 213.761, 324.789 )
 
 [sub_resource type="DynamicFont" id=2]
-
 size = 64
-use_mipmaps = false
-use_filter = false
 font_data = ExtResource( 5 )
-_sections_unfolded = [ "Font", "Settings" ]
 
 [sub_resource type="DynamicFont" id=3]
-
 size = 48
-use_mipmaps = false
-use_filter = false
 font_data = ExtResource( 5 )
-_sections_unfolded = [ "Settings" ]
 
 [sub_resource type="Animation" id=4]
-
 length = 4.0
-loop = false
-step = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:text")
 tracks/0/interp = 1
@@ -86,17 +73,10 @@ tracks/3/keys = {
 }
 
 [sub_resource type="DynamicFont" id=5]
-
 size = 64
-use_mipmaps = false
-use_filter = false
 font_data = ExtResource( 5 )
-_sections_unfolded = [ "Resource" ]
 
 [sub_resource type="Animation" id=6]
-
-length = 1.0
-loop = false
 step = 0.01
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rect_scale")
@@ -124,19 +104,12 @@ tracks/1/keys = {
 }
 
 [sub_resource type="DynamicFont" id=7]
-
 size = 34
-use_mipmaps = false
-use_filter = false
 font_data = ExtResource( 5 )
-_sections_unfolded = [ "Font", "Settings" ]
 
 [sub_resource type="Animation" id=8]
-
 resource_name = "intro"
 length = 5.0
-loop = false
-step = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:custom_colors/font_color")
 tracks/0/interp = 1
@@ -151,19 +124,13 @@ tracks/0/keys = {
 }
 
 [sub_resource type="DynamicFont" id=9]
-
 size = 34
-use_mipmaps = false
-use_filter = false
 font_data = ExtResource( 5 )
-_sections_unfolded = [ "Font", "Settings" ]
 
 [sub_resource type="Animation" id=10]
-
 resource_name = "blink"
 length = 2.0
 loop = true
-step = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:custom_colors/font_color")
 tracks/0/interp = 1
@@ -178,85 +145,46 @@ tracks/0/keys = {
 }
 
 [node name="Top" type="Node"]
-
 script = ExtResource( 1 )
-_sections_unfolded = [ "Material" ]
 
-[node name="GameZone" type="Area2D" parent="." index="0"]
-
+[node name="GameZone" type="Area2D" parent="."]
 editor/display_folded = true
 position = Vector2( 178.023, 297.113 )
-input_pickable = true
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-audio_bus_override = false
-audio_bus_name = "Master"
 
-[node name="Shape" type="CollisionShape2D" parent="GameZone" index="0"]
-
+[node name="Shape" type="CollisionShape2D" parent="GameZone"]
 shape = SubResource( 1 )
 
-[node name="Sky" parent="." index="1" instance=ExtResource( 2 )]
-
+[node name="Sky" parent="." instance=ExtResource( 2 )]
 position = Vector2( 180, 319.925 )
-_sections_unfolded = [ "Material", "Region", "Transform" ]
 
-[node name="Player" parent="." index="2" instance=ExtResource( 3 )]
-
+[node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 54.7708, 297.723 )
 mass = 0.01
-_sections_unfolded = [ "Collision", "Material", "Offset", "Z Index" ]
 
-[node name="Trees" type="Node2D" parent="." index="3"]
+[node name="Trees" type="Node2D" parent="."]
 
-[node name="Coins" type="Node2D" parent="." index="4"]
+[node name="Coins" type="Node2D" parent="."]
 
-[node name="Ground" parent="." index="5" instance=ExtResource( 4 )]
-
+[node name="Ground" parent="." instance=ExtResource( 4 )]
 position = Vector2( 180, 608.425 )
 
-[node name="UI" type="Control" parent="." index="6"]
-
+[node name="UI" type="Control" parent="."]
 editor/display_folded = true
-anchor_left = 0.0
-anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 
-[node name="Score" type="Label" parent="UI" index="0"]
-
+[node name="Score" type="Label" parent="UI"]
 anchor_left = 0.5
-anchor_top = 0.0
 anchor_right = 0.5
-anchor_bottom = 0.0
 margin_left = -84.0
 margin_right = 84.0
 margin_bottom = 72.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
 custom_fonts/font = SubResource( 2 )
 text = "0"
 align = 1
 valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "custom_fonts" ]
 
-[node name="ReadyLabel" type="Label" parent="UI" index="1"]
-
+[node name="ReadyLabel" type="Label" parent="UI"]
 editor/display_folded = true
 modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
@@ -269,33 +197,17 @@ margin_right = 180.0
 margin_bottom = 27.5
 rect_rotation = -10.0
 rect_pivot_offset = Vector2( 180, 27.5 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
 custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0.098877, 0.262899, 0.421875, 1 )
 text = "GO !"
 align = 1
 valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "Anchor", "Grow Direction", "Rect", "Visibility", "custom_colors" ]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/ReadyLabel" index="0"]
-
-root_node = NodePath("..")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/ReadyLabel"]
 autoplay = "ready"
-playback_process_mode = 1
-playback_default_blend_time = 0.0
-playback_speed = 1.0
 anims/ready = SubResource( 4 )
-blend_times = [  ]
 
-[node name="GameOverLabel" type="Label" parent="UI" index="2"]
-
+[node name="GameOverLabel" type="Label" parent="UI"]
 editor/display_folded = true
 visible = false
 anchor_left = 0.5
@@ -307,11 +219,6 @@ margin_top = -108.5
 margin_right = 149.0
 margin_bottom = 108.5
 rect_pivot_offset = Vector2( 149, 108 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
 custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 0.186105, 0.160828, 0.484375, 1 )
 text = "Game Over"
@@ -319,23 +226,11 @@ align = 1
 valign = 1
 autowrap = true
 uppercase = true
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Rect", "custom_colors", "custom_fonts" ]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/GameOverLabel" index="0"]
-
-root_node = NodePath("..")
-autoplay = ""
-playback_process_mode = 1
-playback_default_blend_time = 0.0
-playback_speed = 1.0
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/GameOverLabel"]
 anims/Show = SubResource( 6 )
-blend_times = [  ]
 
-[node name="Instructions" type="Label" parent="UI" index="3"]
-
+[node name="Instructions" type="Label" parent="UI"]
 editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 1.0
@@ -344,34 +239,17 @@ anchor_bottom = 1.0
 margin_left = -141.0
 margin_top = -194.0
 margin_right = 141.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
 custom_fonts/font = SubResource( 7 )
 custom_colors/font_color = Color( 0.173117, 0.171066, 0.433594, 1 )
 text = "Tap to jump"
 align = 1
 valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "custom_colors", "custom_fonts" ]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/Instructions" index="0"]
-
-root_node = NodePath("..")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/Instructions"]
 autoplay = "intro"
-playback_process_mode = 1
-playback_default_blend_time = 0.0
-playback_speed = 1.0
 anims/intro = SubResource( 8 )
-blend_times = [  ]
 
-[node name="GameOverInstructions" type="Label" parent="UI" index="4"]
-
+[node name="GameOverInstructions" type="Label" parent="UI"]
 editor/display_folded = true
 visible = false
 anchor_left = 0.5
@@ -381,91 +259,47 @@ anchor_bottom = 1.0
 margin_left = -153.0
 margin_top = -279.0
 margin_right = 153.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
 custom_fonts/font = SubResource( 9 )
 custom_colors/font_color = Color( 0.114441, 0.133967, 0.292969, 1 )
 text = "Tap to retry"
 align = 1
 valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "custom_colors", "custom_fonts" ]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/GameOverInstructions" index="0"]
-
-root_node = NodePath("..")
-autoplay = ""
-playback_process_mode = 1
-playback_default_blend_time = 0.0
-playback_speed = 1.0
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/GameOverInstructions"]
 anims/blink = SubResource( 10 )
-blend_times = [  ]
 
-[node name="GameStartTimer" type="Timer" parent="." index="7"]
-
-process_mode = 1
+[node name="GameStartTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
 autostart = true
 
-[node name="GameOverTimer" type="Timer" parent="." index="8"]
-
-process_mode = 1
+[node name="GameOverTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
-autostart = false
 
-[node name="TreeSpawner" type="Node2D" parent="." index="9"]
-
-editor/display_folded = true
+[node name="TreeSpawner" type="Node2D" parent="."]
 script = ExtResource( 6 )
-_sections_unfolded = [ "Transform" ]
 TREE = ExtResource( 7 )
-SPAWN_TIME = 4.0
+SPAWN_TIME = 2.0
 
-[node name="GroundPos" type="Position2D" parent="TreeSpawner" index="0"]
+[node name="GroundPos" type="Position2D" parent="TreeSpawner"]
+position = Vector2( 594.422, 528.933 )
 
-position = Vector2( 668.086, 503.086 )
-_sections_unfolded = [ "Transform" ]
+[node name="SkyPos" type="Position2D" parent="TreeSpawner"]
+position = Vector2( 595.275, 97.6093 )
 
-[node name="SkyPos" type="Position2D" parent="TreeSpawner" index="1"]
+[node name="Timer" type="Timer" parent="TreeSpawner"]
 
-position = Vector2( 601.737, 95.0246 )
-
-[node name="Timer" type="Timer" parent="TreeSpawner" index="2"]
-
-process_mode = 1
-wait_time = 1.0
-one_shot = false
-autostart = false
-
-[node name="CoinSpawner" type="Node2D" parent="." index="10"]
-
+[node name="CoinSpawner" type="Node2D" parent="."]
 script = ExtResource( 8 )
 COIN = ExtResource( 9 )
-SPAWN_TIME = 3.0
 
-[node name="Position" type="Position2D" parent="CoinSpawner" index="0"]
+[node name="Position" type="Position2D" parent="CoinSpawner"]
+position = Vector2( 597.43, 305.105 )
 
-position = Vector2( 588.384, 303.813 )
-
-[node name="Timer" type="Timer" parent="CoinSpawner" index="1"]
-
-process_mode = 1
+[node name="Timer" type="Timer" parent="CoinSpawner"]
 wait_time = 3.0
-one_shot = false
-autostart = false
 
 [connection signal="timeout" from="GameStartTimer" to="." method="_on_GameStartTimer_timeout"]
-
 [connection signal="timeout" from="GameOverTimer" to="." method="_on_GameOverTimer_timeout"]
-
 [connection signal="timeout" from="TreeSpawner/Timer" to="TreeSpawner" method="_on_Timer_timeout"]
-
-

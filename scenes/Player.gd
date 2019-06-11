@@ -1,5 +1,8 @@
 extends RigidBody2D
 
+########
+# Player
+
 export (int) var GRAVITY_SCALE = 3
 export (int) var JUMP_SPEED = -200
 export (float) var ANGULAR_SPEED = 0.5
@@ -9,6 +12,9 @@ signal score
 
 var already_hit = false
 var is_ready = false
+
+###################
+# Lifecycle methods
 
 func _ready():
     self.player_reset()
@@ -21,6 +27,15 @@ func _process(delta):
         $Sprite.rotation = deg2rad(90)
     elif $Sprite.rotation < deg2rad(-90):
         $Sprite.rotation = deg2rad(-90)
+
+func _physics_process(delta):
+    if is_ready:
+        var jump = Input.is_action_just_pressed("ui_accept")
+        if jump:
+            jump()
+        
+################
+# Public methods
 
 func player_reset():
     gravity_scale = 0
@@ -46,12 +61,9 @@ func hit_player(direction):
 func out_of_bounds(body):
     if body == self:
         self.hit_player(Vector2(0, 2))
-
-func _physics_process(delta):
-    if is_ready:
-        var jump = Input.is_action_just_pressed("ui_accept")
-        if jump:
-            jump()
+            
+#################
+# Event callbacks
 
 func _on_Player_body_entered(body):
     if body.is_in_group("obstacle"):

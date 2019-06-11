@@ -1,20 +1,29 @@
 extends Node
 
+#######
+# Level
+
 var is_game_over = false
 
 var score = 0
 var title_scene = load("res://scenes/screens/Title.tscn")
 
+###################
+# Lifecycle methods
+
 func _ready():
     $Player.connect('hit', self, 'game_over')
     $Player.connect('score', self, 'update_score')
     $GameZone.connect('body_exited', $Player, 'out_of_bounds')
-
-func _on_GameStartTimer_timeout():
-    $Player.player_ready()
-
-func _on_GameOverTimer_timeout():
-    is_game_over = true
+    
+func _process(delta):
+    if is_game_over:
+        var accept = Input.is_action_just_pressed("ui_accept")
+        if accept:
+            get_tree().change_scene_to(title_scene)
+    
+################
+# Public methods
 
 func update_score(amount):
     score += amount
@@ -33,9 +42,12 @@ func game_over():
     $CoinSpawner.stop_spawner()
 
     $GameOverTimer.start()
+            
+#################
+# Event callbacks
 
-func _process(delta):
-    if is_game_over:
-        var accept = Input.is_action_just_pressed("ui_accept")
-        if accept:
-            get_tree().change_scene_to(title_scene)
+func _on_GameStartTimer_timeout():
+    $Player.player_ready()
+
+func _on_GameOverTimer_timeout():
+    is_game_over = true
