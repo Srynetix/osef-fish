@@ -1,40 +1,28 @@
 extends Area2D
+class_name Coin
 
-######
-# Coin
+export var base_speed := 200.0
 
-export (float) var BASE_SPEED = 200
+onready var _visibility_notifier = $VisibilityNotifier2D
 
-var moving = false
+var _moving := false
 
-###################
-# Lifecycle methods
+func _ready() -> void:
+    connect("body_entered", self, "_on_body_entered")
+    _visibility_notifier.connect("screen_exited", self, "queue_free")
+    start_moving()
 
-func _ready():
-    connect("body_entered", self, "on_body_entered")
-    $VisibilityNotifier2D.connect("screen_exited", self, "destroy")
-    self.start_moving()
-
-func _process(delta):
-    if moving:
-        position.x -= BASE_SPEED * delta
+func _process(delta: float) -> void:
+    if _moving:
+        position.x -= base_speed * delta
         
-################
-# Public methods
+func start_moving() -> void:
+    _moving = true
 
-func start_moving():
-    moving = true
-
-func stop_moving():
-    moving = false
+func stop_moving() -> void:
+    _moving = false
     
-func destroy():
-    queue_free()
-    
-#################
-# Event callbacks
-
-func on_body_entered(body):
+func _on_body_entered(body: PhysicsBody2D) -> void:
     if body.is_in_group("player"):
         body.emit_signal('score', 1)
-        self.destroy()
+        queue_free()

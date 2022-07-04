@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/TreeSpawner.gd" type="Script" id=1]
+[ext_resource path="res://scenes/Tree.tscn" type="PackedScene" id=2]
+
+[node name="TreeSpawner" type="Node2D"]
+script = ExtResource( 1 )
+tree_scene = ExtResource( 2 )
+spawn_time = 2.0
+
+[node name="GroundPos" type="Position2D" parent="."]
+position = Vector2( 594.422, 528.933 )
+
+[node name="SkyPos" type="Position2D" parent="."]
+position = Vector2( 595.275, 97.6093 )
+
+[node name="Timer" type="Timer" parent="."]
