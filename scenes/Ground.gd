@@ -1,19 +1,10 @@
 extends StaticBody2D
+class_name Ground
 
-########
-# Ground
+onready var _animation_player: AnimationPlayer = $AnimationPlayer
 
-###################
-# Lifecycle methods
+func _ready() -> void:
+    _animation_player.play('moving')
 
-func _ready():
-    self.start_anim()
-    
-################
-# Public methods
-
-func start_anim():
-    $AnimationPlayer.play('moving')
-
-func stop_anim():
-    $AnimationPlayer.stop()
+func stop_anim() -> void:
+    _animation_player.stop()

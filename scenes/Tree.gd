@@ -1,33 +1,22 @@
 extends StaticBody2D
+class_name GTree
 
-######
-# Tree
+const SPEED := -150.0
 
-const SPEED = -150
+var _moving := false
 
-var moving = false
+func _ready() -> void:
+    start_moving()
 
-###################
-# Lifecycle methods
-
-func _ready():
-    self.start_moving()
-
-func _physics_process(delta):
-    if moving:
+func _physics_process(delta: float) -> void:
+    if _moving:
         position.x += SPEED * delta
         
-################
-# Public methods
-
 func start_moving():
-    moving = true
+    _moving = true
 
 func stop_moving():
-    moving = false
-
-#################
-# Event callbacks
+    _moving = false
 
 func _on_VisibilityNotifier2D_screen_exited():
     queue_free()

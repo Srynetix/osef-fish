@@ -1,71 +1,63 @@
 extends RigidBody2D
+class_name Player
 
-########
-# Player
+const GRAVITY_SCALE := 3.0
+const JUMP_SPEED := -200.0
+const ANGULAR_SPEED := 0.5
 
-export (int) var GRAVITY_SCALE = 3
-export (int) var JUMP_SPEED = -200
-export (float) var ANGULAR_SPEED = 0.5
+signal hit()
+signal score()
 
-signal hit
-signal score
+onready var _sprite: Sprite = $Sprite
+onready var _animation: AnimationPlayer = $Animation
 
-var already_hit = false
-var is_ready = false
+var _already_hit = false
+var _is_ready = false
 
-###################
-# Lifecycle methods
+func _ready() -> void:
+    _player_reset()
 
-func _ready():
-    self.player_reset()
-
-func _process(delta):
+func _process(_delta: float) -> void:
     var rotation_vel = linear_velocity.y
-    $Sprite.rotation = deg2rad(rotation_vel * 0.25)
+    _sprite.rotation = deg2rad(rotation_vel * 0.25)
 
-    if $Sprite.rotation > deg2rad(90):
-        $Sprite.rotation = deg2rad(90)
-    elif $Sprite.rotation < deg2rad(-90):
-        $Sprite.rotation = deg2rad(-90)
+    if _sprite.rotation > deg2rad(90):
+        _sprite.rotation = deg2rad(90)
+    elif _sprite.rotation < deg2rad(-90):
+        _sprite.rotation = deg2rad(-90)
 
-func _physics_process(delta):
-    if is_ready:
+func _physics_process(_delta: float) -> void:
+    if _is_ready:
         var jump = Input.is_action_just_pressed("ui_accept")
         if jump:
-            jump()
-        
-################
-# Public methods
+           _jump()
 
-func player_reset():
-    gravity_scale = 0
-    $Animation.play("idle")
-    is_ready = false
-
-func player_ready():
+func player_ready() -> void:
     gravity_scale = GRAVITY_SCALE
-    $Animation.play("fly")
-    is_ready = true
-
-func jump():
-    linear_velocity.y = JUMP_SPEED
-
-func hit_player(direction):
-    if not already_hit:
-        already_hit = true
-        is_ready = false
-
-        apply_impulse(Vector2(0, 0), direction * 5)
-        emit_signal("hit")
+    _animation.play("fly")
+    _is_ready = true
 
 func out_of_bounds(body):
     if body == self:
-        self.hit_player(Vector2(0, 2))
-            
-#################
-# Event callbacks
+        _hit_player(Vector2(0, 2))
+ 
+func _player_reset() -> void:
+    gravity_scale = 0
+    _animation.play("idle")
+    _is_ready = false
 
+func _jump():
+    linear_velocity.y = JUMP_SPEED
+
+func _hit_player(direction):
+    if !_already_hit:
+        _already_hit = true
+        _is_ready = false
+
+        apply_impulse(Vector2.ZERO, direction * 5)
+        emit_signal("hit")
+            
 func _on_Player_body_entered(body):
     if body.is_in_group("obstacle"):
         var direction = (body.position - position).normalized() * -1
-        self.hit_player(direction)
+        _hit_player(direction)

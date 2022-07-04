@@ -1,17 +1,11 @@
 extends Node
 
-#######
-# Title
+const LevelScene = preload("res://scenes/screens/Level.tscn")
 
-var next_scene = load("res://scenes/screens/Level.tscn")
-
-###################
-# Lifecycle methods
-
-func _ready():
+func _ready() -> void:
     randomize()
 
-func _process(delta):
+func _process(_delta: float) -> void:
     var accept = Input.is_action_just_pressed("ui_accept")
     if accept:
-        get_tree().change_scene_to(next_scene)
+        get_tree().change_scene_to(LevelScene)

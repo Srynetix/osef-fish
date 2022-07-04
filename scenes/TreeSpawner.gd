@@ -1,46 +1,39 @@
 extends Node2D
+class_name TreeSpawner
 
-##############
-# Tree Spawner
+export var tree_scene: PackedScene
+export var spawn_time := 3.0
+export var container_path: NodePath
 
-export (PackedScene) var TREE
-export (float) var SPAWN_TIME = 3.0
+onready var _timer: Timer = $Timer
+onready var _ground_pos: Position2D = $GroundPos
+onready var _sky_pos: Position2D = $SkyPos
+onready var _container_node: Node = get_node(container_path)
 
-###################
-# Lifecycle methods
+func _ready() -> void:
+    _timer.connect("timeout", self, "_timeout")
+    _timer.wait_time = spawn_time
+    _timer.start()
 
-func _ready():
-    $Timer.wait_time = SPAWN_TIME
-    $Timer.start()
-    
-################
-# Public methods
-
-func spawn_tree(pos, rot):
-    var instance = TREE.instance()
+func _spawn_tree(pos: Vector2, rot: float) -> void:
+    var instance = tree_scene.instance()
     instance.position = pos
     instance.rotation = rot
+    _container_node.add_child(instance)
 
-    var trees = get_tree().get_root().get_node("Top").find_node("Trees")
-    trees.add_child(instance)
-
-func stop_spawner():
+func stop_spawner() -> void:
     # Disable spawner
-    $Timer.stop()
+    _timer.stop()
 
     # Handle game exit
-    if not get_tree():
+    if !get_tree():
         return
 
-    var trees = get_tree().get_root().get_node("Top").find_node("Trees")
-    for i in range(trees.get_child_count()):
-        var tree = trees.get_child(i)
+    for i in range(_container_node.get_child_count()):
+        var tree = _container_node.get_child(i)
         tree.stop_moving()
         
-#################
-# Event callbacks
-
-func _on_Timer_timeout():
+func _timeout() -> void:
     var offset = Vector2(0, rand_range(-100, 100))
-    spawn_tree($GroundPos.position + offset, deg2rad(0.0))
-    spawn_tree($SkyPos.position + offset, deg2rad(180.0))
+    _spawn_tree(_ground_pos.position + offset, deg2rad(0.0))
+    _spawn_tree(_sky_pos.position + offset, deg2rad(180.0))

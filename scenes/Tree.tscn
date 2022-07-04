@@ -1,19 +1,16 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/Tree.gd" type="Script" id=1]
-[ext_resource path="res://textures/pipe.png" type="Texture" id=2]
+[ext_resource path="res://assets/textures/pipe.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 46.3508, 143.055 )
 
-[node name="Tree" type="StaticBody2D" groups=[
-"obstacle",
-]]
+[node name="Tree" type="StaticBody2D" groups=["obstacle"]]
 position = Vector2( 176.367, 322.586 )
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 1 )
-SPEED = -100.0
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 4, 5 )

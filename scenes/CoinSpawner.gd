@@ -1,33 +1,37 @@
 extends Node2D
+class_name CoinSpawner
 
-export (PackedScene) var COIN
-export (float) var SPAWN_TIME = 3.0
+export var coin_scene: PackedScene
+export var spawn_time := 3.0
+export var container_path: NodePath
 
-func _ready():
-    $Timer.connect("timeout", self, "_on_Timer_timeout")
-    $Timer.wait_time = SPAWN_TIME
-    $Timer.start()
+onready var _timer: Timer = $Timer
+onready var _position: Position2D = $Position
+onready var _container_node: Node = get_node(container_path)
 
-func _on_Timer_timeout():
-    var offset = Vector2(0, rand_range(-250, 250))
-    spawn_coin($Position.position + offset)
+func _ready() -> void:
+    _timer.connect("timeout", self, "_timeout")
+    _timer.wait_time = spawn_time
+    _timer.start()
 
-func spawn_coin(pos):
-    var instance = COIN.instance()
+func _timeout() -> void:
+    var offset = Vector2(0, rand_range(-250.0, 250.0))
+    _spawn_coin(_position.position + offset)
+
+func _spawn_coin(pos: Vector2) -> void:
+    var instance = coin_scene.instance()
     instance.position = pos
 
-    var coins = get_tree().get_root().get_node("Top").find_node("Coins")
-    coins.add_child(instance)
+    _container_node.add_child(instance)
 
-func stop_spawner():
+func stop_spawner() -> void:
     # Disable spawner
-    $Timer.stop()
+    _timer.stop()
 
     # Handle game exit
-    if not get_tree():
+    if !get_tree():
         return
 
-    var coins = get_tree().get_root().get_node("Top").find_node("Coins")
-    for i in range(coins.get_child_count()):
-        var coin = coins.get_child(i)
+    for i in range(_container_node.get_child_count()):
+        var coin = _container_node.get_child(i)
         coin.stop_moving()
