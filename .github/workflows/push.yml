@@ -10,12 +10,12 @@ jobs:
     uses: ./.github/workflows/build-game.yml
     with:
       platform: HTML5
-      name: unknown-car-game
+      name: osef-fish
       output_name: index.html
   build-android-debug:
     uses: ./.github/workflows/build-game.yml
     with:
       platform: Android
-      name: unknown-car-game
-      output_name: UnknownCarGame.apk
+      name: osef-fish
+      output_name: OsefFish.apk
       debug: true
